@@ -5,7 +5,6 @@ lsp.preset("recommended")
 lsp.ensure_installed({
   'tsserver',
   'rust_analyzer',
-  'r_language_server',
   'pyright',
   'tailwindcss',
   'yamlls',
