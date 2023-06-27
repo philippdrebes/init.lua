@@ -8,7 +8,7 @@ lsp.ensure_installed({
   'pyright',
   'tailwindcss',
   'yamlls',
-  'omnisharp',
+  'csharp_ls',
   'gopls',
   'html',
   'jsonls',
