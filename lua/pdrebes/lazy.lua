@@ -13,20 +13,21 @@ vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup({
-    {'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' }},
-    {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'},
+  {'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' }},
+  {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'},
   'nvim-treesitter/playground',
   'ThePrimeagen/harpoon',
   'mbbill/undotree',
   'tpope/vim-fugitive',
+  { dir = '~/.config/nvim/color/dracula_pro' },
   {'williamboman/mason.nvim'},
   {'williamboman/mason-lspconfig.nvim'},
 
-{'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-{'neovim/nvim-lspconfig'},
-{'hrsh7th/cmp-nvim-lsp'},
-{'hrsh7th/nvim-cmp'},
-{'L3MON4D3/LuaSnip'},
+  {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
+  {'neovim/nvim-lspconfig'},
+  {'hrsh7th/cmp-nvim-lsp'},
+  {'hrsh7th/nvim-cmp'},
+  {'L3MON4D3/LuaSnip'},
 })
 
 

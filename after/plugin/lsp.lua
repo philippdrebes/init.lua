@@ -12,10 +12,12 @@ require('mason-lspconfig').setup({
     'html',
     'jsonls',
     'ltex',
+  }
 })
 
 
 local cmp = require('cmp')
+local cmp_action = require('lsp-zero').cmp_action()
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
@@ -27,8 +29,15 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
+cmp.setup({
+  mapping = cmp_mappings
+  -- cmp.mapping.preset.insert({
+  --    ['<C-Space>'] = cmp.mapping.complete(),
+  --    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+  --    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+  --    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+  --    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+  --  })
 })
 
 lsp.set_preferences({
