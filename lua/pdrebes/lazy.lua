@@ -14,6 +14,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' }},
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+  {
+    "kelly-lin/telescope-ag",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+  },
+
   {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'},
   'nvim-treesitter/playground',
   'ThePrimeagen/harpoon',
