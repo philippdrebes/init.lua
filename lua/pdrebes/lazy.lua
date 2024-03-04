@@ -22,7 +22,11 @@ require("lazy").setup({
 
   {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'},
   'nvim-treesitter/playground',
-  'ThePrimeagen/harpoon',
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
+  },
   'mbbill/undotree',
   'tpope/vim-fugitive',
   { dir = '~/.config/nvim/color/dracula_pro' },
