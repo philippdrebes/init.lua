@@ -2,6 +2,13 @@ return {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
+    settings = {
+        save_on_toggle = false,
+        sync_on_ui_close = true,
+        key = function()
+            return vim.loop.cwd()
+        end,
+    },
     config = function()
         local harpoon = require("harpoon")
 
@@ -23,6 +30,7 @@ return {
 
 
         -- basic telescope configuration
+        --[[
         local conf = require("telescope.config").values
         local function toggle_telescope(harpoon_files)
             local file_paths = {}
@@ -42,5 +50,6 @@ return {
 
         vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
             { desc = "Open harpoon window" })
+        --]]
     end
 }
