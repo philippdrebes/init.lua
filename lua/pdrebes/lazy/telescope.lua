@@ -13,7 +13,10 @@ return {
             telescope.setup({})
 
             local builtin = require('telescope.builtin')
+
             telescope.load_extension("ag")
+            telescope.load_extension('fzf')
+
             vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
             vim.keymap.set('n', '<C-p>', builtin.git_files, {})
             vim.keymap.set('n', '<leader>pws', function()
