@@ -1,39 +1,47 @@
 return {
 	"stevearc/conform.nvim",
-	event = { "BufReadPre", "BufNewFile" },
-	config = function()
-		local conform = require("conform")
-
-		conform.setup({
-			formatters_by_ft = {
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				javascriptreact = { "prettier" },
-				typescriptreact = { "prettier" },
-				svelte = { "prettier" },
-				css = { "prettier" },
-				html = { "prettier" },
-				json = { "prettier" },
-				yaml = { "prettier" },
-				markdown = { "prettier" },
-				graphql = { "prettier" },
-				lua = { "stylua" },
-				python = { "isort", "black" },
-				sql = { "sql-formatter" },
-			},
-			format_on_save = {
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1500,
-			},
-		})
-
-		vim.keymap.set({ "n", "v" }, "<leader>f", function()
-			conform.format({
-				lsp_fallback = true,
-				async = true,
-				timeout_ms = 1000,
-			})
-		end, { desc = "Format file or range (in visual mode)" })
+	event = { "BufWritePre" },
+	cmd = { "ConformInfo" },
+	keys = {
+		{
+			"<leader>f",
+			function()
+				require("conform").format({ async = true, lsp_fallback = true })
+			end,
+			mode = "n",
+			desc = "Format buffer",
+		},
+	},
+	-- Everything in opts will be passed to setup()
+	opts = {
+		-- Define your formatters
+		formatters_by_ft = {
+			javascript = { "prettier" },
+			typescript = { "prettier" },
+			javascriptreact = { "prettier" },
+			typescriptreact = { "prettier" },
+			svelte = { "prettier" },
+			css = { "prettier" },
+			html = { "prettier" },
+			json = { "prettier" },
+			yaml = { "prettier" },
+			markdown = { "prettier" },
+			graphql = { "prettier" },
+			lua = { "stylua" },
+			python = { "isort", "black" },
+			sql = { "sql-formatter" },
+		},
+		-- Set up format-on-save
+		format_on_save = { timeout_ms = 500, lsp_fallback = true },
+		-- Customize formatters
+		-- formatters = {
+		-- 	shfmt = {
+		-- 		prepend_args = { "-i", "2" },
+		-- 	},
+		-- },
+	},
+	init = function()
+		-- If you want the formatexpr, here is the place to set it
+		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 	end,
 }
