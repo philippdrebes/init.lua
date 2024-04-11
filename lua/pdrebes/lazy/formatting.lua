@@ -19,7 +19,7 @@ return {
 			javascript = { "prettier" },
 			typescript = { "prettier" },
 			javascriptreact = { "prettier" },
-			typescriptreact = { "prettier" },
+			typescriptreact = { "tailwindcss", "prettier" },
 			svelte = { "prettier" },
 			css = { "prettier" },
 			html = { "prettier" },
