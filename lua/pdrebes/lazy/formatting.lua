@@ -32,6 +32,7 @@ return {
             python = { "isort", "yapf" },
             sql = { "sql-formatter" },
             tex = { "latexindent" },
+            csharp = { "csharpier" },
         },
         -- Set up format-on-save
         format_on_save = { timeout_ms = 500, lsp_fallback = true },
