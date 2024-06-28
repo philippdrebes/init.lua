@@ -1,6 +1,17 @@
 return {
     "NvChad/nvim-colorizer.lua",
-    config = function()
-        require("colorizer").setup {}
-    end
+    opts = {
+        filetypes = {
+            'css',
+            'scss',
+            'sass',
+            'javascript',
+            'typescript',
+            html = {
+                -- Available methods are false / true / "normal" / "lsp" / "both"
+                -- True is same as normal
+                tailwind = true, -- Enable tailwind colors
+            }
+        }
+    }
 }
