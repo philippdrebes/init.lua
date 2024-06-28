@@ -8,6 +8,4 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     spec = "pdrebes.lazy",
     change_detection = { notify = false },
-    -- automatically check for plugin updates
-    checker = { enabled = true },
 })
