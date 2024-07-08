@@ -22,6 +22,7 @@
   "nvim-treesitter": { "branch": "master", "commit": "66ec1b3c4e1828d00f59fb97ebfd33afcd352eb8" },
   "plenary": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
+  "rose-pine": { "branch": "main", "commit": "dded5c15e9d27ac95ad1e803b35a752d80f3f42b" },
   "smartcolumn.nvim": { "branch": "main", "commit": "cefb17be095ad5526030a21bb2a80553cae09127" },
   "tardis.nvim": { "branch": "main", "commit": "1e9a8ca59ddd2b09525e0577776364b35814ff52" },
   "telescope-ag": { "branch": "main", "commit": "7d25064da3c7689461bcfa89ad1f08548415193d" },
