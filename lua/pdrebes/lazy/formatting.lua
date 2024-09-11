@@ -23,7 +23,7 @@ return {
 			svelte = { "prettier" },
 			css = { "prettier" },
 			html = { "prettier" },
-			htmldjango = { "djlint" },
+			htmldjango = { "prettier", "djlint" },
 			json = { "prettier" },
 			yaml = { "yamlfmt", "prettier" },
 			xml = { "xmlformatter" },
@@ -36,7 +36,7 @@ return {
 			csharp = { "csharpier" },
 		},
 		-- Set up format-on-save
-		format_on_save = { timeout_ms = 500, lsp_fallback = true },
+		format_on_save = { timeout_ms = 800, lsp_fallback = true },
 		-- Customize formatters
 		-- formatters = {
 		-- 	shfmt = {
