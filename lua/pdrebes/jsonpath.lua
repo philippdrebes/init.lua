@@ -31,7 +31,31 @@ end
 function M.show_json_path()
 	local bufnr = vim.api.nvim_get_current_buf()
 	local json_path = get_json_path(bufnr)
-	vim.api.nvim_echo({ { json_path, "Normal" } }, false, {})
+
+	local width = math.ceil(string.len(json_path) + 4)
+	local height = 1
+	local opts = {
+		relative = "cursor",
+		width = width,
+		height = height,
+		row = 1,
+		col = 0,
+		style = "minimal",
+		border = "single",
+	}
+
+	local buf = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, { json_path })
+	local win = vim.api.nvim_open_win(buf, false, opts)
+
+	vim.api.nvim_create_autocmd("CursorMoved", {
+		buffer = bufnr,
+		callback = function()
+			if vim.api.nvim_win_is_valid(win) then
+				vim.api.nvim_win_close(win, true)
+			end
+		end,
+	})
 end
 
 function M.setup(opts)
