@@ -60,5 +60,14 @@ return {
 			filetype = "gotmpl",
 			used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl" },
 		}
+
+		treesitter_parser_config.blade = {
+			install_info = {
+				url = "https://github.com/EmranMR/tree-sitter-blade",
+				files = { "src/parser.c" },
+				branch = "main",
+			},
+			filetype = "blade",
+		}
 	end,
 }
