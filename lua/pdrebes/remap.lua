@@ -34,6 +34,12 @@ vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 vim.keymap.set("n", "<leader>mk", "<cmd>!make<CR>", { silent = true })
 vim.keymap.set("n", "<leader>mt", "<cmd>te make<CR>", { silent = true })
 
+-- tab control
+vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true, desc = "Create new tab" })
+vim.keymap.set("n", "<leader>th", ":tabprev<CR>", { noremap = true, silent = true, desc = "Previous tab" })
+vim.keymap.set("n", "<leader>tl", ":tabnext<CR>", { noremap = true, silent = true, desc = "Next tab" })
+vim.keymap.set("n", "<leader>tc", ":tabclose<CR>", { noremap = true, silent = true, desc = "Close current tab" })
+
 vim.keymap.set("n", "<leader><leader>", function()
 	vim.cmd("so")
 end)
