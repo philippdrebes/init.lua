@@ -80,3 +80,9 @@ autocmd FileType php set iskeyword+=$
 ]],
 	false
 )
+
+vim.filetype.add({
+	extension = {
+		systems = "systems",
+	},
+})
