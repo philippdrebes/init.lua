@@ -34,6 +34,7 @@ return {
 			tex = { "latexindent" },
 			typescript = { "prettier" },
 			typescriptreact = { "tailwindcss", "prettier" },
+			vue = { "tailwindcss", "prettier" },
 			xml = { "xmlformatter" },
 			yaml = { "yamlfmt", "prettier" },
 		},
