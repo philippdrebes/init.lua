@@ -34,6 +34,12 @@ vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 vim.keymap.set("n", "<leader>mk", "<cmd>!make<CR>", { silent = true })
 vim.keymap.set("n", "<leader>mt", "<cmd>te make<CR>", { silent = true })
 
+vim.keymap.set("n", "<leader>cr", function()
+	vim.fn.setreg("+", vim.fn.fnamemodify(vim.fn.expand("%"), ":."))
+	vim.fn.setreg("@", vim.fn.fnamemodify(vim.fn.expand("%"), ":."))
+	print("Relative path yanked and copied to clipboard")
+end)
+
 -- tab control
 vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true, desc = "Create new tab" })
 vim.keymap.set("n", "<leader>th", ":tabprev<CR>", { noremap = true, silent = true, desc = "Previous tab" })
