@@ -22,6 +22,7 @@ return {
 			graphql = { "prettier" },
 			html = { "prettier" },
 			htmldjango = { "prettier", "djlint" },
+			java = { "google-java-format" },
 			javascript = { "prettier" },
 			javascriptreact = { "prettier" },
 			json = { "prettier" },
