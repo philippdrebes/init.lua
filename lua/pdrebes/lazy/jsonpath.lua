@@ -4,7 +4,6 @@ return {
 	-- dev = true,
 	-- dir = "~/dev/jsonpath.nvim",
 
-	dependencies = { "nvim-treesitter/nvim-treesitter" },
 	config = function()
 		local jsonpath = require("jsonpath")
 

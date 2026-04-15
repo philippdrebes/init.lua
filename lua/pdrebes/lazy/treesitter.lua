@@ -1,79 +1,36 @@
-return {
-	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate",
-	config = function()
-		require("nvim-treesitter.configs").setup({
-			-- A list of parser names, or "all"
-			ensure_installed = {
-				"vimdoc",
-				"javascript",
-				"typescript",
-				"lua",
-				"rust",
-				"jsdoc",
-				"bash",
-				"python",
-				"go",
-				"yaml",
-				"jsonc",
-			},
+-- Native Neovim treesitter
+-- Parsers bundled with Neovim 0.12: lua, vim, vimdoc, bash, python, c, markdown, markdown_inline, query
+--
+-- All other parsers are compiled .so files placed in ~/.local/share/nvim/parser/
+-- Run scripts/install-parsers.sh on each machine to set them up.
 
-			-- Install parsers synchronously (only applied to `ensure_installed`)
-			sync_install = false,
+local parser_dir = vim.fn.stdpath("data") .. "/parser/"
 
-			-- Automatically install missing parsers when entering buffer
-			-- Recommendation: set to false if you don"t have `tree-sitter` CLI installed locally
-			auto_install = true,
-
-			indent = {
-				enable = true,
-			},
-
-			highlight = {
-				-- `false` will disable the whole extension
-				enable = true,
-
-				-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-				-- Set this to `true` if you depend on "syntax" being enabled (like for indentation).
-				-- Using this option may slow down your editor, and you may see some duplicate highlights.
-				-- Instead of true it can also be a list of languages
-				additional_vim_regex_highlighting = { "markdown" },
-			},
-		})
-
-		local treesitter_parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-		treesitter_parser_config.templ = {
-			install_info = {
-				url = "https://github.com/vrischmann/tree-sitter-templ.git",
-				files = { "src/parser.c", "src/scanner.c" },
-				branch = "master",
-			},
-		}
-
-		vim.treesitter.language.register("templ", "templ")
-
-		treesitter_parser_config.gotmpl = {
-			install_info = {
-				url = "https://github.com/ngalaiko/tree-sitter-go-template",
-				files = { "src/parser.c" },
-			},
-			filetype = "gotmpl",
-			used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl" },
-		}
-
-		treesitter_parser_config.blade = {
-			install_info = {
-				url = "https://github.com/EmranMR/tree-sitter-blade",
-				files = { "src/parser.c" },
-				branch = "main",
-			},
-			filetype = "blade",
-		}
-
-		vim.filetype.add({
-			pattern = {
-				[".*%.blade%.php"] = "blade",
-			},
-		})
-	end,
+-- Custom parsers: register only if the .so has been compiled and placed.
+local custom_parsers = {
+    { lang = "templ",  file = "templ.so" },
+    { lang = "gotmpl", file = "gotmpl.so" },
+    { lang = "blade",  file = "blade.so" },
 }
+
+for _, p in ipairs(custom_parsers) do
+    local path = parser_dir .. p.file
+    if vim.uv.fs_stat(path) then
+        vim.treesitter.language.add(p.lang, { path = path })
+    end
+end
+
+-- gotmpl is used by multiple filetypes
+vim.treesitter.language.register("gotmpl", "gohtmltmpl")
+vim.treesitter.language.register("gotmpl", "gotexttmpl")
+
+vim.treesitter.language.register("templ", "templ")
+vim.treesitter.language.register("c_sharp", "cs")
+
+vim.filetype.add({
+    pattern = {
+        [".*%.blade%.php"] = "blade",
+    },
+})
+
+return {}
