@@ -5,6 +5,7 @@
 set -euo pipefail
 
 PARSER_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/parser"
+QUERIES_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/queries"
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
 
@@ -16,8 +17,9 @@ command -v tree-sitter >/dev/null 2>&1 || {
     exit 1
 }
 
-mkdir -p "$PARSER_DIR"
+mkdir -p "$PARSER_DIR" "$QUERIES_DIR"
 echo "Parser directory: $PARSER_DIR"
+echo "Queries directory: $QUERIES_DIR"
 echo ""
 
 # ── helpers ────────────────────────────────────────────────────────────────────
@@ -28,6 +30,13 @@ build() {
     git clone --quiet --depth 1 "$url" "$dir" 2>/dev/null
     local grammar="${dir}${subdir:+/$subdir}"
     tree-sitter build --output "$PARSER_DIR/$name.so" "$grammar" 2>/dev/null
+    # Copy highlight queries from the grammar repo when available.
+    # Placed in site/queries so user config queries (queries/) take precedence.
+    local hl="$grammar/queries/highlights.scm"
+    if [[ -f "$hl" ]]; then
+        mkdir -p "$QUERIES_DIR/$name"
+        cp "$hl" "$QUERIES_DIR/$name/highlights.scm"
+    fi
     echo "✓"
 }
 
@@ -45,26 +54,30 @@ build java       https://github.com/tree-sitter/tree-sitter-java
 printf "  %-12s " "php"
 git clone --quiet --depth 1 https://github.com/tree-sitter/tree-sitter-php "$WORK/php-repo" 2>/dev/null
 tree-sitter build --output "$PARSER_DIR/php.so" "$WORK/php-repo/php" 2>/dev/null
+[[ -f "$WORK/php-repo/php/queries/highlights.scm" ]] && { mkdir -p "$QUERIES_DIR/php"; cp "$WORK/php-repo/php/queries/highlights.scm" "$QUERIES_DIR/php/highlights.scm"; }
 echo "✓"
 printf "  %-12s " "php_only"
 tree-sitter build --output "$PARSER_DIR/php_only.so" "$WORK/php-repo/php_only" 2>/dev/null
 echo "✓"
 build rust       https://github.com/tree-sitter/tree-sitter-rust
 build go         https://github.com/tree-sitter/tree-sitter-go
-build yaml       https://github.com/ikatyang/tree-sitter-yaml
+build yaml       https://github.com/tree-sitter-grammars/tree-sitter-yaml
 build json       https://github.com/tree-sitter/tree-sitter-json
 
-# jsonc shares the same parser binary as json
+# jsonc shares the same parser binary and queries as json
 cp "$PARSER_DIR/json.so" "$PARSER_DIR/jsonc.so"
+[[ -d "$QUERIES_DIR/json" ]] && { mkdir -p "$QUERIES_DIR/jsonc"; cp "$QUERIES_DIR/json/highlights.scm" "$QUERIES_DIR/jsonc/highlights.scm"; }
 printf "  %-12s ✓ (copied from json)\n" "jsonc"
 
 # TypeScript: two grammars in one repo
 printf "  %-12s " "typescript"
 git clone --quiet --depth 1 https://github.com/tree-sitter/tree-sitter-typescript "$WORK/ts-repo" 2>/dev/null
 tree-sitter build --output "$PARSER_DIR/typescript.so" "$WORK/ts-repo/typescript" 2>/dev/null
+[[ -f "$WORK/ts-repo/typescript/queries/highlights.scm" ]] && { mkdir -p "$QUERIES_DIR/typescript"; cp "$WORK/ts-repo/typescript/queries/highlights.scm" "$QUERIES_DIR/typescript/highlights.scm"; }
 echo "✓"
 printf "  %-12s " "tsx"
 tree-sitter build --output "$PARSER_DIR/tsx.so" "$WORK/ts-repo/tsx" 2>/dev/null
+[[ -f "$WORK/ts-repo/tsx/queries/highlights.scm" ]] && { mkdir -p "$QUERIES_DIR/tsx"; cp "$WORK/ts-repo/tsx/queries/highlights.scm" "$QUERIES_DIR/tsx/highlights.scm"; }
 echo "✓"
 
 # ── custom parsers ─────────────────────────────────────────────────────────────

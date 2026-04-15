@@ -33,4 +33,13 @@ vim.filetype.add({
     },
 })
 
+-- Enable treesitter highlighting for any filetype that has a parser + queries.
+-- Silently skips filetypes with no parser (pcall). Bundled parsers are already
+-- handled by Neovim itself; this covers parsers in ~/.local/share/nvim/parser/.
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+    end,
+})
+
 return {}
