@@ -4,7 +4,7 @@
 # Re-run any time to update parsers.
 set -euo pipefail
 
-PARSER_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/parser"
+PARSER_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/parser"
 QUERIES_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/queries"
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
