@@ -2,7 +2,9 @@ return {
     {
         "nvim-telescope/telescope.nvim",
 
-        tag = "0.1.6",
+        -- master uses vim.treesitter directly (compatible with nvim-treesitter `main`);
+        -- the old 0.1.6 tag crashed on `ft_to_lang` after the treesitter migration.
+        branch = "master",
 
         dependencies = {
             "nvim-lua/plenary.nvim"
